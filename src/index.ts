@@ -21,8 +21,15 @@ class SimpleSelect {
         const ui = new UI(this.element, options);
 
         // Setup events
-        ui.container.addEventListener("click", () => ui.open());
-        ui.container.addEventListener("focusout", () => ui.close());
+        ui.container.addEventListener("click", () => {
+            ui.open();
+            ui.focusSearch();
+        });
+        ui.container.addEventListener("focusout", (e) => {
+            if(!(e.currentTarget as HTMLDivElement).contains(e.relatedTarget as HTMLElement)) {
+                ui.close()
+            }
+        });
     }
 }
 

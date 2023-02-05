@@ -4,6 +4,7 @@ import "./styles/ui.scss";
 class UI {
   container: HTMLDivElement;
   options?: Option[];
+  search?: HTMLInputElement;
 
   constructor(element: HTMLSelectElement, options?: Option[]) {
     this.options = options;
@@ -23,10 +24,10 @@ class UI {
       "simpleselect__value-container"
     );
     const singleValue = createElement("div", "simpleselect__value-single");
-    const searchInput = createElement("input", "simpleselect__search");
+    this.search = <HTMLInputElement>createElement("input", "simpleselect__search");
 
     valueContainer.appendChild(singleValue);
-    valueContainer.appendChild(searchInput);
+    valueContainer.appendChild(this.search);
     select.appendChild(valueContainer);
 
     // Cria controles do select
@@ -58,7 +59,6 @@ class UI {
   }
 
   open() {
-    console.log(this);
     // Checa se já não está aberto
     if (!this.container.querySelector(".simpleselect__menu")) {
       // Cria menu
@@ -81,7 +81,17 @@ class UI {
   }
 
   close() {
-    this.container.querySelector(".simpleselect__menu").remove();
+    if (this.container.querySelector(".simpleselect__menu")) {
+      this.container.querySelector(".simpleselect__menu").remove();
+    }
+  }
+
+  focusSearch() {
+    this.search.focus();
+  }
+
+  focusOut() {
+    
   }
 }
 
